@@ -78,7 +78,7 @@ import Arrow from "./assets/arrow-thin-chevron-bottom-icon.svg"
             </div>
 
             <div className="results">
-              {filteredTasks.map((task, index) => (
+              {filteredTasks.map((task) => (
                 <div key={task.id} className="task">
                   <label className="contained">
                     <input
@@ -87,9 +87,12 @@ import Arrow from "./assets/arrow-thin-chevron-bottom-icon.svg"
                       onChange={() => toggleTaskCompletion(task.id)}
                     />
                     <span className="checkmark"></span>
-                    {task.text}
+                    <span
+                      className={`taskText ${task.completed ? "completed" : ""}`}
+                    >
+                      {task.text}
+                    </span>
                   </label>
-                  {index !== tasks.length - 1}
                 </div>
               ))}
             </div>
