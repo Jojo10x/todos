@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { Checkbox } from './CheckBox';
 import Arrow from "./assets/arrow-thin-chevron-bottom-icon.svg"
 
 
@@ -64,7 +63,7 @@ import Arrow from "./assets/arrow-thin-chevron-bottom-icon.svg"
           <div className="paper2"></div>
           <div className="container">
             <div className="text-input">
-                <img src={Arrow} alt="" />
+              <img src={Arrow} alt="" />
               <input
                 type="text"
                 placeholder="What needs to be done?"
@@ -80,13 +79,16 @@ import Arrow from "./assets/arrow-thin-chevron-bottom-icon.svg"
 
             <div className="results">
               {filteredTasks.map((task, index) => (
-                <div key={task.id} className="task" >
-                  <Checkbox
-                    label={task.text}
-                    checked={task.completed}
-                    onChange={() => toggleTaskCompletion(task.id)}
-                    completed={task.completed}
-                  />
+                <div key={task.id} className="task">
+                  <label className="contained">
+                    <input
+                      type="checkbox"
+                      checked={task.completed}
+                      onChange={() => toggleTaskCompletion(task.id)}
+                    />
+                    <span className="checkmark"></span>
+                    {task.text}
+                  </label>
                   {index !== tasks.length - 1}
                 </div>
               ))}
