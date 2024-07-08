@@ -56,7 +56,7 @@ import Arrow from "./assets/arrow-thin-chevron-bottom-icon.svg"
     const itemsLeft = uncompletedTasks.length;
 
     return (
-      <>
+      <div className='todo-app'>
         <h1>todos</h1>
         <div className="block">
           <div className="paper1"></div>
@@ -109,7 +109,7 @@ import Arrow from "./assets/arrow-thin-chevron-bottom-icon.svg"
             </div>
           </div>
         </div>
-      </>
+      </div>
     );
   };
 
