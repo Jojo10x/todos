@@ -54,13 +54,30 @@ jobs:
     needs: deploy
     runs-on: ubuntu-latest
     steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  
+          
       - name: Wait for deployment
-        run: sleep 30  
+        run: sleep 30
 
       - name: Lighthouse Audit
         uses: treosh/lighthouse-ci-action@v10
+        env:
+          LHCI_BUILD_CONTEXT__CURRENT_HASH: ${{ github.sha }}
         with:
           urls: |
             https://jojo10x.github.io/todos/
           uploadArtifacts: true
           temporaryPublicStorage: true
+          configPath: '.lighthouse/config.json'
+          runs: 3  
+
+      - name: Save Lighthouse results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: lighthouse-results
+          path: '.lighthouseci'
+          retention-days: 7
