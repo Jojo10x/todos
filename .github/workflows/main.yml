@@ -1,4 +1,4 @@
-name: CI/CD for react Todos
+name: CI/CD for React Todos
 
 on:
   push:
@@ -6,7 +6,6 @@ on:
       - master
 
 jobs:
-  # Build Job
   build:
     runs-on: ubuntu-latest
     steps:
@@ -19,36 +18,29 @@ jobs:
           node-version: 18.x
 
       - name: Install Dependencies
-        run: |
-          cd todo
-          npm install
+        run: npm install
 
       - name: Build Project
-        run: |
-          cd todo
-          npm run build
+        run: npm run build
 
       - name: Upload artifact to enable deployment
         uses: actions/upload-artifact@v3
         with:
-          name: poduction file
-          path: ./todos/dist
+          name: production-files
+          path: dist
 
-  # Deploy Job
   deploy:
-   
     needs: build
-    
     runs-on: ubuntu-latest
     steps:
       - name: Download artifact
         uses: actions/download-artifact@v3
         with:
-          name: poduction file
-          path: ./todo/build
+          name: production-files
+          path: dist
 
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
-          github_token: ${{ secrets.KEY }} #this is the key of the access token
-          publish_dir: ./todos/dist
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: dist
