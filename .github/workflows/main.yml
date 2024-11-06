@@ -49,3 +49,18 @@ jobs:
         uses: actions/deploy-pages@v4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
+
+  lighthouse:
+    needs: deploy
+    runs-on: ubuntu-latest
+    steps:
+      - name: Wait for deployment
+        run: sleep 30  
+
+      - name: Lighthouse Audit
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            https://jojo10x.github.io/todos/
+          uploadArtifacts: true
+          temporaryPublicStorage: true

@@ -22,3 +22,7 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Add these lines to .gitignore
+.lighthouseci/
+!.lighthouse/config.json
